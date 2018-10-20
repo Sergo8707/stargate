@@ -11,9 +11,13 @@ export default class App extends Component {
   }
 
   componentDidMount = async () => {
-    const response = await fetch(url)
-    const data = await response.json()
-    this.setState({ data })
+    try {
+      const response = await fetch(url)
+      const data = await response.json()
+      this.setState({ data })
+    } catch (e) {
+      throw e
+    }
   }
 
   render() {
