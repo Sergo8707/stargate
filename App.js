@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import { View } from 'react-native'
 import { Header, ImageCard } from './src/components/uikit'
-import { h, w } from './constants'
 
 const url = 'https://raw.githubusercontent.com/react-native-village/react-native-init/master/stargate/stargate.json'
 
@@ -22,7 +21,6 @@ export default class App extends Component {
   }
 
   render() {
-    console.log('h', 'w', h, w)
     return (
       <View>
         <Header title={this.state.title} />
