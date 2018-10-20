@@ -2,30 +2,34 @@ import React from 'react'
 import { Image, View, Text, StyleSheet } from 'react-native'
 import { w } from '../../../constants'
 
-const ImageCard = () => {
+const ImageCard = ({ data }) => {
   const { container, sub, h1, cover } = styles
+  const { image, name } = data
   return (
     <View style={container}>
       <View style={sub}>
-        <Image style={cover} source={{ url: 'https://github.com/react-native-village/react-native-init/raw/master/stargate/images/Stargate.jpg' }} />
+        <Image style={cover} source={{ url: image }} />
       </View>
-      <Text style={h1}>Image</Text>
+      <Text style={h1}>{name.toUpperCase()}</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: w / 2.1
+    width: w / 2.4,
+    paddingVertical: 10
   },
   sub: {
-    padding: 10,
     shadowColor: '#000',
+    borderRadius: 10,
     shadowRadius: 8,
+    backgroundColor: 'white',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.4
   },
   h1: {
+    paddingTop: 10,
     fontFamily: 'AvenirNext-DemiBold',
     fontSize: 18,
     alignSelf: 'center',
