@@ -1,15 +1,16 @@
 import React, { PureComponent } from 'react'
-import { View, Text } from 'react-native'
-import { Header } from '../components/uikit'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { ScrollView, View, Text, StyleSheet } from 'react-native'
+import { Header, ImageBigCard } from '../components/uikit'
 
 class DelailsScreen extends PureComponent {
   render() {
     console.log('this.props', this.props)
     const { image, name, summary } = this.props.navigation.state.params
     const { navigation } = this.props
+    const data = { image }
+    const { container, h1, h2, sub } = styles
     return (
-      <View>
+      <View style={container}>
         <Header 
           detail
           title={name}
@@ -17,13 +18,42 @@ class DelailsScreen extends PureComponent {
           leftIcon='ios-arrow-back'
           leftColor='#fff'
         />
-        <Text>
-          Hello World
-        </Text>
-        <Icon name='rocket' size={30} color='#900' />
+        <ScrollView>
+          <View style={sub}>
+            <ImageBigCard data={data} />
+            <Text style={h1}>{name.toUpperCase()}</Text>
+            <Text style={h2}>{summary.replace(/<[^>]+>/g, '')}</Text>
+          </View>
+        </ScrollView>
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff'
+  },
+  sub: {
+    flex: 1,
+    alignItems: 'center',
+    marginBottom: 150,
+    backgroundColor: '#fff'
+  },
+  h1: {
+    fontFamily: 'AvenirNext-DemiBold',
+    fontSize: 30,
+    padding: 15,
+    textAlign: 'center'
+  },
+  h2: {
+    fontFamily: 'AvenirNext-DemiBold',
+    fontSize: 15,
+    padding: 15,
+    color: 'grey',
+    textAlign: 'center',
+    paddingHorizontal: 15
+  }
+})
 
 export default DelailsScreen
