@@ -2,11 +2,11 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 
-const Header = props => {
+const Header = ({ title }) => {
   const { viewStyle, textStyle } = styles
   return (
     <View style={viewStyle}>
-      <Text style={textStyle}>{props.title}</Text>
+      <Text style={textStyle}>{title}</Text>
     </View >
   )
 }

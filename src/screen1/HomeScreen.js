@@ -34,7 +34,7 @@ export default class HomeScreen extends Component {
               <ImageCard 
                 data={item.show}
                 key={item.show.id} 
-                onPress={() => navigation.navigate(STARGATE_DETAILS, (data))}
+                onPress={() => navigation.navigate(STARGATE_DETAILS, (item.show))}
               />
             ))
             }
