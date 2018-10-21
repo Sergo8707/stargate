@@ -8,10 +8,10 @@ class DelailsScreen extends PureComponent {
     console.log('this.props', this.props)
     const { image, name, summary } = this.props.navigation.state.params
     const { navigation } = this.props
-    const data = { image, name }
     return (
       <View>
         <Header 
+          detail
           title={name}
           onPress={() => navigation.goBack()} 
           leftIcon='ios-arrow-back'

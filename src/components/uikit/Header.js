@@ -2,29 +2,29 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { w } from '../../../constants'
 
-const Header = ({ title, onPress, leftIcon, leftColor }) => {
+const Header = ({ title, detail, onPress, leftIcon, leftColor }) => {
   const { viewStyle, textStyle, leftButtonStyle } = styles
   return (
     <View style={viewStyle}>
       <TouchableOpacity onPress={onPress}>
-        <Ionicons name={leftIcon} style={leftButtonStyle} color={leftColor} />
+        <Ionicons name={leftIcon} style={[leftButtonStyle, { paddingLeft: detail ? 10 : 20 }]} color={leftColor} />
       </TouchableOpacity>
-      <Text style={textStyle}>{title}</Text>
+      <Text numberOfLines={1} ellipsizeMode='tail' style={[textStyle, {paddingLeft: leftIcon ? 10 : 0 }]}>{title}</Text>
     </View >
   )
 }
 
 const styles = StyleSheet.create({
   viewStyle: {
+    flexDirection: 'row',
     backgroundColor: '#30d0fe',
     ...ifIphoneX({
       height: 116
     }, {
       height: 90
     }),
-    justifyContent: 'center',
-    paddingLeft: 22,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   textStyle: {
     color: '#fff',
     fontSize: 28,
+    width: w - 40,
     fontFamily: 'AvenirNext-DemiBold',
     ...ifIphoneX({
       paddingTop: 75
