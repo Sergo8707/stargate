@@ -1,11 +1,15 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
-const Header = ({ title }) => {
-  const { viewStyle, textStyle } = styles
+const Header = ({ title, onPress, leftIcon, leftColor }) => {
+  const { viewStyle, textStyle, leftButtonStyle } = styles
   return (
     <View style={viewStyle}>
+      <TouchableOpacity onPress={onPress}>
+        <Ionicons name={leftIcon} style={leftButtonStyle} color={leftColor} />
+      </TouchableOpacity>
       <Text style={textStyle}>{title}</Text>
     </View >
   )
@@ -36,6 +40,14 @@ const styles = StyleSheet.create({
     }, {
       paddingTop: 50
     })
+  },
+  leftButtonStyle: {
+    ...ifIphoneX({
+      paddingTop: 75
+    }, {
+      paddingTop: 50
+    }),
+    fontSize: 35
   }
 })
 

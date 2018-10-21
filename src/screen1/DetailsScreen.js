@@ -11,7 +11,12 @@ class DelailsScreen extends PureComponent {
     const data = { image, name }
     return (
       <View>
-        <Header title={name} />
+        <Header 
+          title={name}
+          onPress={() => navigation.goBack()} 
+          leftIcon='ios-arrow-back'
+          leftColor='#fff'
+        />
         <Text>
           Hello World
         </Text>
