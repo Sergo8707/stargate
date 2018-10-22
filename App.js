@@ -1,39 +1,36 @@
-import React, {Component} from 'react'
-import { View, ScrollView } from 'react-native'
-import { Header, ImageCard, Layout } from './src/components/uikit'
+import React from 'react'
+import { createBottomTabNavigator } from 'react-navigation'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import One from './src/screen1'
+import Two from './src/screen2'
+import Three from './src/screen3'
+import { BLUE } from './constants'
 
-const url = 'https://raw.githubusercontent.com/react-native-village/react-native-init/master/stargate/stargate.json'
-
-export default class App extends Component {
-  state = {
-    title: 'STAR GATE',
-    data: []
-  }
-
-  componentDidMount = async () => {
-    try {
-      const response = await fetch(url)
-      const data = await response.json()
-      this.setState({ data })
-    } catch (e) {
-      throw e
+export default createBottomTabNavigator(
+  {
+    Stargate: One,
+    Batman: Two,
+    Spiderman: Three
+  },
+  {
+    navigationOptions: ({ navigation}) => ({
+      tabBarIcon: ({ focused, tintColor }) => {
+        const { routeName } = navigation.state
+        let iconName
+        if (routeName === 'Stargate') {
+          iconName = focused ? 'ios-videocam' : 'ios-play'
+        } else if (routeName === 'Batman') {
+          iconName = focused ? 'ios-videocam' : 'ios-play'
+        } else if (routeName === 'Spiderman') {
+          iconName = focused ? 'ios-videocam' : 'ios-play'
+        }
+        return <Ionicons name={iconName} size={25} color={tintColor} />
+      }
+    }),
+    tabBarOptions: {
+      activeTintColor: BLUE,
+      inactiveTintColor: 'gray'
     }
   }
+)
 
-  render() {
-    const { title, data } = this.state
-    return (
-      <View>
-        <Header title={title} />
-        <ScrollView>
-          <Layout>
-            {data.map(item => (
-              <ImageCard data={item} key={item.id} />
-            ))
-            }
-          </Layout>
-        </ScrollView>
-      </View>
-    )
-  }
-}
