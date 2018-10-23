@@ -33,7 +33,6 @@ export default class HomeScreen extends Component {
       <View>
         <Header 
           title={title}
-          leftIcon='ios-menu'
           leftColor='#fff'
           onPress={() => navigation.openDrawer()}
         />
