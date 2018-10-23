@@ -3,8 +3,13 @@ import { ScrollView, View, Text, StyleSheet } from 'react-native'
 import { Header, ImageBigCard } from '../components/uikit'
 
 class DelailsScreen extends PureComponent {
+  componentWillUnmount() {
+    const { onGoBack } = this.props.navigation.state.params
+    onGoBack && onGoBack('Hello from children')
+  }
   render() {
-    const { image, name, summary } = this.props.navigation.state.params
+    const { show } = this.props.navigation.state.params
+    const { image, name, summary } = show
     const { navigation } = this.props
     const data = { image }
     const { container, h1, h2, sub } = styles

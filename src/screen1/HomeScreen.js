@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, ScrollView } from 'react-native'
 import { Header, ImageCard, Layout } from '../components/uikit'
-import { STARGATE_DETAILS } from '../routes';
+import { STARGATE_DETAILS } from '../routes'
 
 const url = 'http://api.tvmaze.com/search/shows?q=stargate'
 
@@ -19,6 +19,10 @@ export default class HomeScreen extends Component {
     } catch (e) {
       throw e
     }
+  }
+
+  onGoBack = (someDataFromChildren) => {
+    console.log('someDataFromChildren', someDataFromChildren)
   }
 
   render() {
@@ -39,7 +43,7 @@ export default class HomeScreen extends Component {
               <ImageCard 
                 data={item.show}
                 key={item.show.id} 
-                onPress={() => navigation.navigate(STARGATE_DETAILS, (item.show))}
+                onPress={() => navigation.navigate(STARGATE_DETAILS, ({ show: item.show, onGoBack: this.onGoBack }))}
               />
             ))
             }
