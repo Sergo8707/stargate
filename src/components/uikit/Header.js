@@ -2,24 +2,40 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { w } from '../../../constants'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { w, BLUE } from '../../../constants'
 
-const Header = ({ title, detail, onPress, leftIcon, leftColor }) => {
-  const { viewStyle, textStyle, leftButtonStyle } = styles
+const Header = ({ 
+  iconLeft,
+  iconRight,
+  colorLeft,
+  colorRight,
+  title, 
+  onPressLeft, 
+  onPressRight
+}) => {
+  const { container, textStyle, iconLeftStyle, iconRightStyle } = styles
   return (
-    <View style={viewStyle}>
-      <TouchableOpacity onPress={onPress}>
-        <Ionicons name={leftIcon} style={[leftButtonStyle, { paddingLeft: detail ? 10 : 20 }]} color={leftColor} />
-      </TouchableOpacity>
-      <Text numberOfLines={1} ellipsizeMode='tail' style={[textStyle, {paddingLeft: leftIcon ? 10 : 0 }]}>{title}</Text>
+    <View style={container}>
+      {iconLeft &&
+        <TouchableOpacity onPress={onPressLeft}>
+          <Ionicons name={iconLeft} style={iconLeftStyle} color={colorLeft} />
+        </TouchableOpacity>
+      }
+      <Text numberOfLines={1} ellipsizeMode='tail' style={textStyle}>{title}</Text>
+      {iconRight &&
+        <TouchableOpacity onPress={onPressRight}>
+          <MaterialCommunityIcons name={iconRight} style={[iconRightStyle, { color: colorRight }]} />
+        </TouchableOpacity>
+      }
     </View >
   )
 }
 
 const styles = StyleSheet.create({
-  viewStyle: {
+  container: {
     flexDirection: 'row',
-    backgroundColor: '#30d0fe',
+    justifyContent: 'space-between',
     ...ifIphoneX({
       height: 116
     }, {
@@ -29,26 +45,37 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     elevation: 2,
+    paddingHorizontal: 20,
+    backgroundColor: BLUE,
     position: 'relative'
   },
   textStyle: {
     color: '#fff',
     fontSize: 28,
-    width: w - 40,
+    width: w - 75,
     fontFamily: 'AvenirNext-DemiBold',
     ...ifIphoneX({
       paddingTop: 75
     }, {
-      paddingTop: 50
+      paddingTop: 40
     })
   },
-  leftButtonStyle: {
+  iconLeftStyle: {
     ...ifIphoneX({
       paddingTop: 75
     }, {
-      paddingTop: 50
+      paddingTop: 40
     }),
     fontSize: 35
+  },
+  iconRightStyle: {
+    ...ifIphoneX({
+      paddingTop: 75
+    }, {
+      paddingTop: 44
+    }),
+    fontSize: 30,
+    marginRight: 3
   }
 })
 

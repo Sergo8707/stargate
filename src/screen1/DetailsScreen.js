@@ -3,10 +3,6 @@ import { ScrollView, View, Text, StyleSheet } from 'react-native'
 import { Header, ImageBigCard } from '../components/uikit'
 
 class DelailsScreen extends PureComponent {
-  componentWillUnmount() {
-    const { onGoBack } = this.props.navigation.state.params
-    onGoBack && onGoBack('Hello from children')
-  }
   render() {
     const { show } = this.props.navigation.state.params
     const { image, name, summary } = show
@@ -18,9 +14,9 @@ class DelailsScreen extends PureComponent {
         <Header 
           detail
           title={name}
-          onPress={() => navigation.goBack()} 
-          leftIcon='ios-arrow-back'
-          leftColor='#fff'
+          onPressLeft={() => navigation.goBack()} 
+          iconLeft='ios-arrow-back'
+          colorLeft='#fff'
         />
         <ScrollView>
           <View style={sub}>

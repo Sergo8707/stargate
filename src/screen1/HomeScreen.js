@@ -33,7 +33,8 @@ export default class HomeScreen extends Component {
       <View>
         <Header 
           title={title}
-          leftColor='#fff'
+          colorRight={'#fff'}
+          iconRight='magnify'
           onPress={() => navigation.openDrawer()}
         />
         <ScrollView>
