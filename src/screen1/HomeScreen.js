@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { View, ScrollView } from 'react-native'
-import { Header, ImageCard, Layout } from '../components/uikit'
-import { STARGATE_DETAILS } from '../routes'
+import { Header, Layout, SearchBar, ImageCard } from '../components/uikit'
+import { 
+  STARGATE_DETAILS 
+} from '../routes'
 
 const url = 'http://api.tvmaze.com/search/shows?q=stargate'
 
 export default class HomeScreen extends Component {
   state = {
     title: 'STAR GATE',
-    data: []
+    data: [],
+    visibleSearchbar: false
   }
 
   componentDidMount = async () => {
@@ -21,22 +24,31 @@ export default class HomeScreen extends Component {
     }
   }
 
-  onGoBack = (someDataFromChildren) => {
-    console.log('someDataFromChildren', someDataFromChildren)
+  _onChangeText = text => {
+    console.log('text', text)
   }
 
   render() {
-    const { title, data } = this.state
+    const { title, data, visibleSearchbar } = this.state
     const { navigation } = this.props
-    
     return (
       <View>
-        <Header 
-          title={title}
-          colorRight={'#fff'}
-          iconRight='magnify'
-          onPress={() => navigation.openDrawer()}
-        />
+        { visibleSearchbar ?
+          <SearchBar
+            colorRight={'#fff'}
+            iconRight='magnify'
+            placeholder="Search"
+            onChangeText={this._onChangeText}
+            onPressRight={() => this.setState({ visibleSearchbar: false })}
+            onBlur={() => this.setState({ visibleSearchbar: true })}
+          /> :
+          <Header
+            title={title}
+            colorRight={'#fff'}
+            iconRight='magnify'
+            onPressRight={() => this.setState({ visibleSearchbar: true })}
+          />
+        }
         <ScrollView>
           <Layout>
             {data.map(item => (
