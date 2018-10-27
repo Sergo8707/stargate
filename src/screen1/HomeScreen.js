@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { View, ScrollView } from 'react-native'
+import { connect } from 'react-redux'
+import { searchChanged } from '../actions'
 import { Header, Layout, SearchBar, ImageCard } from '../components/uikit'
 import { 
   STARGATE_DETAILS 
@@ -7,7 +9,7 @@ import {
 
 const url = 'http://api.tvmaze.com/search/shows?q=stargate'
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
   state = {
     title: 'STAR GATE',
     data: [],
@@ -25,12 +27,12 @@ export default class HomeScreen extends Component {
   }
 
   _onChangeText = text => {
-    console.log('text', text)
+    this.props.searchChanged(text)
   }
 
   render() {
     const { title, data, visibleSearchbar } = this.state
-    const { navigation } = this.props
+    const { navigation, movie } = this.props
     return (
       <View>
         { visibleSearchbar ?
@@ -38,6 +40,7 @@ export default class HomeScreen extends Component {
             colorRight={'#fff'}
             iconRight='magnify'
             placeholder="Search"
+            value={movie}
             onChangeText={this._onChangeText}
             onPressRight={() => this.setState({ visibleSearchbar: false })}
             onBlur={() => this.setState({ visibleSearchbar: true })}
@@ -65,3 +68,11 @@ export default class HomeScreen extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    movie: state.search.movie
+  }
+}
+
+export default connect(mapStateToProps, { searchChanged })(HomeScreen)
