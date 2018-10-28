@@ -1,1 +1,4 @@
 export const SEARCH_CHANGE = 'SEARCH_CHANGE'
+export const MOVIES_FETCHED = 'MOVIES_FETCHED'
+export const MOVIES_FAILED = 'MOVIES_FETCHED'
+

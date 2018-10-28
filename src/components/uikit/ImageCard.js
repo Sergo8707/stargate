@@ -5,7 +5,7 @@ import { w } from '../../../constants'
 const ImageCard = ({ data, onPress }) => {
   const { container, sub, h1, cover } = styles
   const { image, name } = data
-  const img = `https${image.medium.slice(4)}`
+  const img = image === null ? 'https://fcrmedia.ie/wp-content/themes/fcr/assets/images/default.jpg' : `https${image.medium.slice(4)}`
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={container}>

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { View, ScrollView } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
-import { searchChanged } from '../actions'
+import { searchChanged, getMovies} from '../actions'
 import { Header, Layout, SearchBar, ImageCard } from '../components/uikit'
 import { 
   STARGATE_DETAILS 
 } from '../routes'
 
-const url = 'http://api.tvmaze.com/search/shows?q=stargate'
+const url = 'https://api.tvmaze.com/search/shows?q=stargate'
 
 class HomeScreen extends Component {
   state = {
@@ -28,11 +28,12 @@ class HomeScreen extends Component {
 
   _onChangeText = text => {
     this.props.searchChanged(text)
+    this.props.getMovies(text)
   }
 
   render() {
-    const { title, data, visibleSearchbar } = this.state
-    const { navigation, movie } = this.props
+    const { title, visibleSearchbar } = this.state
+    const { navigation, movie, data } = this.props
     return (
       <View>
         { visibleSearchbar ?
@@ -40,8 +41,8 @@ class HomeScreen extends Component {
             colorRight={'#fff'}
             iconRight='magnify'
             placeholder="Search"
-            value={movie}
             onChangeText={this._onChangeText}
+            value={movie}
             onPressRight={() => this.setState({ visibleSearchbar: false })}
             onBlur={() => this.setState({ visibleSearchbar: true })}
           /> :
@@ -52,18 +53,15 @@ class HomeScreen extends Component {
             onPressRight={() => this.setState({ visibleSearchbar: true })}
           />
         }
-        <ScrollView>
-          <Layout>
-            {data.map(item => (
-              <ImageCard 
-                data={item.show}
-                key={item.show.id} 
-                onPress={() => navigation.navigate(STARGATE_DETAILS, ({ show: item.show, onGoBack: this.onGoBack }))}
-              />
-            ))
-            }
-          </Layout>
-        </ScrollView>
+        <Layout>
+          { data.map(item => (
+            <ImageCard 
+              data={item.show}
+              key={item.show.id} 
+              onPress={() => navigation.navigate(STARGATE_DETAILS, ({ show: item.show, onGoBack: this.onGoBack }))}
+            />
+          ))}
+        </Layout>
       </View>
     )
   }
@@ -71,8 +69,9 @@ class HomeScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    movie: state.search.movie
+    movie: state.search.movie,
+    data: state.search.data
   }
 }
 
-export default connect(mapStateToProps, { searchChanged })(HomeScreen)
+export default connect(mapStateToProps, { searchChanged, getMovies })(HomeScreen)
