@@ -5,8 +5,6 @@ import {
 } from '../types'
 
 export const searchChanged = (text) => {
-  console.log('text', text)
-  
   return {
     type: SEARCH_CHANGE,
     payload: text
@@ -20,12 +18,14 @@ export const getMovies = (text) => async (dispatch) => {
   }
   function onError(error) {
     dispatch({ type: MOVIES_FAILED, error })
+    return error
   }
   try {
-    const URL = 'https://api.tvmaze.com/search/shows?q=${text}'
-    const res = await fetch(URL, { method: 'GET'})
+    const URL = `https://api.tvmaze.com/search/shows?q=${text}`
+    const res = await fetch(URL, {
+      method: 'GET'
+    })
     const success = await res.json()
-    console.log('success', success)
     return onSuccess(success)
   } catch (error) {
     return onError(error)
